@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <Authors>SembaYui</Authors>
+    <Company>DemoCompany</Company>
+    <Copyright>© Demo Company Co., Ltd. All Rights Reserved.</Copyright>
+    <Description>Demo Clean Architecture</Description>
+    <Product>DemoCleanArchitecture</Product>
+    <RootNamespace>DemoCompany.$(MSBuildProjectName)</RootNamespace>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+</Project>

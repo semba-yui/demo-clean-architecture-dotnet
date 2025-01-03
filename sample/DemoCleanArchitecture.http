@@ -1,0 +1,21 @@
+@DemoCleanArchitecture_HostAddress = http://localhost:8080
+
+### Startup
+GET {{DemoCleanArchitecture_HostAddress}}/health/startup
+
+### Liveness
+GET {{DemoCleanArchitecture_HostAddress}}/health/liveness
+
+### Readiness
+GET {{DemoCleanArchitecture_HostAddress}}/health/readiness
+
+### ユーザー登録
+POST {{DemoCleanArchitecture_HostAddress}}/api/demo-clean-architecture/v1.0/user/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "user_name": "test-user",
+  "email": "aaa1@example.co.jp",
+  "password": "p@ssWord"
+}
