@@ -1,8 +1,8 @@
 using System.Net;
 using System.Net.Mime;
 using DemoCompany.DemoCleanArchitecture.Api.Forms.Responses.V1;
+using DemoCompany.DemoCleanArchitecture.Application.Constants;
 using DemoCompany.DemoCleanArchitecture.Application.Exceptions;
-using DemoCompany.DemoCleanArchitecture.Application.Models;
 using Serilog;
 
 namespace DemoCompany.DemoCleanArchitecture.Api.Middlewares;
@@ -10,7 +10,7 @@ namespace DemoCompany.DemoCleanArchitecture.Api.Middlewares;
 /// <summary>
 ///     例外処理を行うミドルウェア
 /// </summary>
-public class ExceptionHandlingMiddleware : IMiddleware
+public sealed class ExceptionHandlingMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -24,8 +24,8 @@ public class ExceptionHandlingMiddleware : IMiddleware
 
             if (!context.Response.HasStarted)
             {
-                await HandleInvalidParameterExceptionAsync(context: context, errorCode: ipe.ErrorCode,
-                    errorMessage: ipe.Message);
+                await HandleInvalidParameterExceptionAsync(context, ipe.ErrorCode,
+                    ipe.Message);
             }
         }
         catch (Exception e)

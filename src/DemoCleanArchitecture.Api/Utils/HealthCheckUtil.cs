@@ -27,7 +27,7 @@ public static class HealthCheckUtil
                     status = entry.Value.Status.ToString(),
                     description = entry.Value.Description,
                     duration = entry.Value.Duration.TotalMilliseconds,
-                    exception = entry.Value.Exception?.Message,
+                    exception = entry.Value.Exception?.Message
                 })
         };
 

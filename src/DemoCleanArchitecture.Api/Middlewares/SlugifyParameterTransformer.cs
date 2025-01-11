@@ -5,7 +5,7 @@ namespace DemoCompany.DemoCleanArchitecture.Api.Middlewares;
 /// <summary>
 ///     パスパラメータをケバブ形式に変換するためのパラメータトランスフォーマー
 /// </summary>
-public class SlugifyParameterTransformer : IOutboundParameterTransformer
+public sealed class SlugifyParameterTransformer : IOutboundParameterTransformer
 {
     /// <summary>
     ///     パスパラメータをケバブ形式に変換する

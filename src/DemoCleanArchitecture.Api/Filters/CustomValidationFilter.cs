@@ -1,5 +1,5 @@
 using DemoCompany.DemoCleanArchitecture.Api.Forms.Responses.V1;
-using DemoCompany.DemoCleanArchitecture.Application.Models;
+using DemoCompany.DemoCleanArchitecture.Application.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;
@@ -7,7 +7,8 @@ using Serilog;
 namespace DemoCompany.DemoCleanArchitecture.Api.Filters;
 
 /// <inheritdoc />
-public sealed class CustomValidationFilter : ActionFilterAttribute
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class CustomValidateActionFilterAttribute : ActionFilterAttribute
 {
     /// <inheritdoc />
     public override void OnActionExecuting(ActionExecutingContext context)

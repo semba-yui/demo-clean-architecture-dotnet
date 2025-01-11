@@ -5,11 +5,13 @@ namespace DemoCompany.DemoCleanArchitecture.Application.Interfaces;
 public interface IAuthCodeRepository
 {
     /// <summary>
-    ///     ユーザーIDで認証コードを検索する
+    ///     ユーザーIDと認証コードの値で、有効な認証コードを検索する
     /// </summary>
     /// <param name="userId"></param>
+    /// <param name="codeValue"></param>
+    /// <param name="now"></param>
     /// <returns></returns>
-    Task<IEnumerable<AuthCodeEntity>> FindActiveAuthCodesByUserIdAsync(int userId, DateTime now);
+    Task<AuthCodeEntity?> FindActiveAuthCodesByUserIdAndCodeAsync(int userId, string codeValue, DateTime now);
 
     /// <summary>
     ///     認証コードを保存する
@@ -24,4 +26,11 @@ public interface IAuthCodeRepository
     /// <param name="authCode"></param>
     /// <returns></returns>
     public void Delete(AuthCodeEntity authCode);
+
+    /// <summary>
+    ///     認証コードを更新する
+    /// </summary>
+    /// <param name="authCode"></param>
+    /// <returns></returns>
+    public void Update(AuthCodeEntity authCode);
 }

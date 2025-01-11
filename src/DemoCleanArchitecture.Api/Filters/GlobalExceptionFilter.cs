@@ -1,7 +1,7 @@
 using System.Net;
 using DemoCompany.DemoCleanArchitecture.Api.Forms.Responses.V1;
+using DemoCompany.DemoCleanArchitecture.Application.Constants;
 using DemoCompany.DemoCleanArchitecture.Application.Exceptions;
-using DemoCompany.DemoCleanArchitecture.Application.Models;
 using DemoCompany.DemoCleanArchitecture.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

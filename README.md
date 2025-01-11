@@ -48,3 +48,12 @@ dotnet tool run dotnet-ef migrations remove \
 ```shell
 dotnet tool run jb cleanupcode DemoCleanArchitecture.sln
 ```
+
+## 備考
+
+乱数生成（JWTのシークレットキー）
+
+```shell
+$ openssl rand -base64 32
+zT13v36WiWNVzW/XrhaKGW/e78a/1hsNy0h2DdqRmYo=
+```

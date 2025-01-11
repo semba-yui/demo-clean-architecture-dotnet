@@ -6,7 +6,7 @@ namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Repositories;
 ///     Implementation of IDateTimeRepository
 /// </summary>
 #pragma warning disable S2325
-public class DateTimeRepository : IDateTimeRepository
+public sealed class DateTimeRepository : IDateTimeRepository
 {
     /// <summary>
     ///     Get the current date and time in UTC

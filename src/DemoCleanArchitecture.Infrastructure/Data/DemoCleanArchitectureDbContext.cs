@@ -28,6 +28,7 @@ public sealed class DemoCleanArchitectureDbContext : DbContext
     public DbSet<RolePermissionEntity> RolePermissions => Set<RolePermissionEntity>();
     public DbSet<UserEntity> Users => Set<UserEntity>();
     public DbSet<UserRoleEntity> UserRoles => Set<UserRoleEntity>();
+    public DbSet<RefreshTokenEntity> RefreshTokens => Set<RefreshTokenEntity>();
 
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -58,7 +59,7 @@ public sealed class DemoCleanArchitectureDbContext : DbContext
                 entityWithTimestamps.UpdatedAt = DateTime.Now;
                 break;
             case EntityState.Added:
-                var now = DateTime.Now;
+                DateTime now = DateTime.Now;
                 entityWithTimestamps.UpdatedAt = now;
                 entityWithTimestamps.CreatedAt = now;
                 break;

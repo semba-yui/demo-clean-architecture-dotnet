@@ -7,8 +7,9 @@ namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Data.Configurations;
 /// <summary>
 ///     ユーザーとロールの関係 (UserRole) を管理する中間テーブルの設定クラス
 /// </summary>
-public class UserRoleConfiguration : IEntityTypeConfiguration<UserRoleEntity>
+public sealed class UserRoleConfiguration : IEntityTypeConfiguration<UserRoleEntity>
 {
+    /// <inheritdoc />
     public void Configure(EntityTypeBuilder<UserRoleEntity> builder)
     {
         builder.ToTable("UserRoles", tableBuilder =>

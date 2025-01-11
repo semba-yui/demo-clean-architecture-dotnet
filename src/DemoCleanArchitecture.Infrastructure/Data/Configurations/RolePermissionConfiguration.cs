@@ -9,6 +9,7 @@ namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Data.Configurations;
 /// </summary>
 public sealed class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermissionEntity>
 {
+    /// <inheritdoc />
     public void Configure(EntityTypeBuilder<RolePermissionEntity> builder)
     {
         builder.ToTable("RolePermissions", tableBuilder =>

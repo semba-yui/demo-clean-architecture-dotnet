@@ -2,6 +2,7 @@ using DemoCompany.DemoCleanArchitecture.Application.Exceptions;
 using DemoCompany.DemoCleanArchitecture.Application.Interfaces;
 using DemoCompany.DemoCleanArchitecture.Infrastructure.Data;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Storage;
 using Serilog;
 
 namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Repositories;
@@ -10,7 +11,7 @@ namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Repositories;
 ///     Entity Framework によるユニットオブワーク
 /// </summary>
 /// <param name="dbContext"></param>
-public class EfUnitOfWork(DemoCleanArchitectureDbContext dbContext) : IUnitOfWork
+public sealed class EfUnitOfWork(DemoCleanArchitectureDbContext dbContext) : IUnitOfWork
 {
     /// <summary>
     ///     アクション(複数のDB操作)を一括でトランザクション内で実行し、成功すればコミット、失敗時にはロールバックする。

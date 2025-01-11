@@ -59,4 +59,9 @@ public class UserEntity : BaseEntity
     ///     Auth Codes
     /// </summary>
     public virtual ICollection<AuthCodeEntity> AuthCodes { get; set; } = new List<AuthCodeEntity>();
+
+    /// <summary>
+    ///     Refresh Tokens
+    /// </summary>
+    public virtual ICollection<RefreshTokenEntity> RefreshTokens { get; set; } = new List<RefreshTokenEntity>();
 }

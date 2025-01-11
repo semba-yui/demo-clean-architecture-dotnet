@@ -8,12 +8,12 @@ public abstract class BaseEntity
     /// <summary>
     ///     作成日時
     /// </summary>
-    public required DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     /// <summary>
     ///     更新日時
     /// </summary>
-    public required DateTime UpdatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
     /// <summary>
     ///     バージョン

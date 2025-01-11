@@ -20,7 +20,7 @@ public sealed class DbConnectivityHealthCheck(DemoCleanArchitectureDbContext dbC
     {
         try
         {
-            var canConnect = await dbContext.Database.CanConnectAsync(cancellationToken);
+            bool canConnect = await dbContext.Database.CanConnectAsync(cancellationToken);
 
             return canConnect
                 ? HealthCheckResult.Healthy("DB connection is OK")

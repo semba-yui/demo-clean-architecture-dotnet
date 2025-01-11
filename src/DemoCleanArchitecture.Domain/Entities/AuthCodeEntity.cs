@@ -18,7 +18,7 @@ public class AuthCodeEntity : BaseEntity
     /// <summary>
     ///     Auth Code
     /// </summary>
-    public required string AuthCodeValue { get; set; } = null!;
+    public required string AuthCodeValue { get; set; }
 
     /// <summary>
     ///     有効期限
@@ -28,7 +28,7 @@ public class AuthCodeEntity : BaseEntity
     /// <summary>
     ///     このコードが既に使用済みかどうか
     /// </summary>
-    public bool IsUsed { get; set; }
+    public required bool IsUsed { get; set; }
 
     /// <summary>
     ///     紐づくユーザー

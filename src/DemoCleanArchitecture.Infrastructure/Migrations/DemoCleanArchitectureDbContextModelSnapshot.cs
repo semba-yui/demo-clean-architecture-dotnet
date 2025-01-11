@@ -135,6 +135,65 @@ namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DemoCompany.DemoCleanArchitecture.Domain.Entities.RefreshTokenEntity", b =>
+                {
+                    b.Property<int>("RefreshTokenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("リフレッシュトークンID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RefreshTokenId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()")
+                        .HasComment("作成日時");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2")
+                        .HasComment("トークンの有効期限");
+
+                    b.Property<bool>("IsRevoked")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("トークンが無効化されているか");
+
+                    b.Property<string>("TokenValue")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(256)")
+                        .HasComment("RefreshToken の本体文字列");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()")
+                        .HasComment("最終更新日時");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasComment("ユーザーID");
+
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion")
+                        .HasComment("バージョン");
+
+                    b.HasKey("RefreshTokenId");
+
+                    b.HasIndex("UserId", "TokenValue", "ExpiresAt", "IsRevoked");
+
+                    b.ToTable("RefreshTokens", "dca", t =>
+                        {
+                            t.HasComment("リフレッシュトークン");
+                        });
+                });
+
             modelBuilder.Entity("DemoCompany.DemoCleanArchitecture.Domain.Entities.RoleEntity", b =>
                 {
                     b.Property<int>("RoleId")
@@ -364,6 +423,17 @@ namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("DemoCompany.DemoCleanArchitecture.Domain.Entities.RefreshTokenEntity", b =>
+                {
+                    b.HasOne("DemoCompany.DemoCleanArchitecture.Domain.Entities.UserEntity", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DemoCompany.DemoCleanArchitecture.Domain.Entities.RolePermissionEntity", b =>
                 {
                     b.HasOne("DemoCompany.DemoCleanArchitecture.Domain.Entities.PermissionEntity", "Permission")
@@ -417,6 +487,8 @@ namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Migrations
             modelBuilder.Entity("DemoCompany.DemoCleanArchitecture.Domain.Entities.UserEntity", b =>
                 {
                     b.Navigation("AuthCodes");
+
+                    b.Navigation("RefreshTokens");
 
                     b.Navigation("UserRoles");
                 });

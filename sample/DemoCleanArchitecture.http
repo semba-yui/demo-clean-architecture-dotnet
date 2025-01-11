@@ -10,7 +10,7 @@ GET {{DemoCleanArchitecture_HostAddress}}/health/liveness
 GET {{DemoCleanArchitecture_HostAddress}}/health/readiness
 
 ### ユーザー登録
-POST {{DemoCleanArchitecture_HostAddress}}/api/demo-clean-architecture/v1.0/user/register
+POST {{DemoCleanArchitecture_HostAddress}}/api/demo-clean-architecture/v1.0/auth/register
 Accept: application/json
 Content-Type: application/json
 
@@ -19,3 +19,38 @@ Content-Type: application/json
   "email": "aaa1@example.co.jp",
   "password": "p@ssWord"
 }
+
+### ログイン
+POST {{DemoCleanArchitecture_HostAddress}}/api/demo-clean-architecture/v1.0/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "aaa1@example.co.jp",
+  "password": "p@ssWord"
+}
+
+### 二段階認証コード発行
+POST {{DemoCleanArchitecture_HostAddress}}/api/demo-clean-architecture/v1.0/auth/two-factor/issue
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMzA1YmJmZmUtM2M4MC00MmM2LWFjM2EtNjgzODM0MGE3ZGY1IiwiaWF0IjoxNzM2NjA5Nzg5LCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJMaW1pdGVkQWNjZXNzIiwidHdvZmFfdmVyaWZpZWQiOnRydWUsIm5iZiI6MTczNjYwOTc4OSwiZXhwIjoxNzM2NjEwMDg5LCJpc3MiOiJkZW1vLWNsZWFuLWFyY2hpdGVjdHVyZSIsImF1ZCI6InRhcmdldC1hdWRpZW5jZSJ9.DXpfVQNRAr0BkDhOlrbyrYXusKLJ4VnveRCMDBNJv2o
+Accept: application/json
+Content-Type: application/json
+
+{
+  "user_id": 1
+}
+
+### 二段階認証コード検証
+POST {{DemoCleanArchitecture_HostAddress}}/api/demo-clean-architecture/v1.0/auth/two-factor/verify
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiMzA1YmJmZmUtM2M4MC00MmM2LWFjM2EtNjgzODM0MGE3ZGY1IiwiaWF0IjoxNzM2NjA5Nzg5LCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJMaW1pdGVkQWNjZXNzIiwidHdvZmFfdmVyaWZpZWQiOnRydWUsIm5iZiI6MTczNjYwOTc4OSwiZXhwIjoxNzM2NjEwMDg5LCJpc3MiOiJkZW1vLWNsZWFuLWFyY2hpdGVjdHVyZSIsImF1ZCI6InRhcmdldC1hdWRpZW5jZSJ9.DXpfVQNRAr0BkDhOlrbyrYXusKLJ4VnveRCMDBNJv2o
+Accept: application/json
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "code": "063212"
+}
+
+### ユーザー情報取得
+GET {{DemoCleanArchitecture_HostAddress}}/api/demo-clean-architecture/v1.0/user/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwianRpIjoiYzAzNDgwMTMtNmFlZC00ODRkLWJkMjYtNWM1ZGQ5M2QxNGNhIiwiaWF0IjoxNzM2NjA5ODEwLCJ0d29mYV92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzM2NjA5ODEwLCJleHAiOjE3MzY2MTM0MTAsImlzcyI6ImRlbW8tY2xlYW4tYXJjaGl0ZWN0dXJlIiwiYXVkIjoidGFyZ2V0LWF1ZGllbmNlIn0.YDgcbsMpOxZC8saqt73u0YYFoLyGp6fBgSqfhdR5ins

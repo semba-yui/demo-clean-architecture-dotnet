@@ -93,5 +93,10 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
             .WithOne(ac => ac.User)
             .HasForeignKey(ac => ac.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(u => u.RefreshTokens)
+            .WithOne(ac => ac.User)
+            .HasForeignKey(ac => ac.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

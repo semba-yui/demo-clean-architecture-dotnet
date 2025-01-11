@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant C as Client
+    participant S as Auth Server
+
+    C->>S: POST /auth/refresh { refresh_token: "xxxx" }
+    note over C,S: AccessTokenが期限切れ
+    S->>S: Validate refresh_token (DB or signature check)
+    alt Token invalid
+        S-->>C: 401 Unauthorized
+    else Token valid
+        S->>S: Create new AccessToken (+ optional new RefreshToken)
+        S-->>C: 200 OK { access_token: "...", refresh_token: "yyyy", ... }
+    end

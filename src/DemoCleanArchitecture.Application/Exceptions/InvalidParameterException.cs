@@ -1,4 +1,4 @@
-using DemoCompany.DemoCleanArchitecture.Application.Models;
+using DemoCompany.DemoCleanArchitecture.Application.Constants;
 
 namespace DemoCompany.DemoCleanArchitecture.Application.Exceptions;
 

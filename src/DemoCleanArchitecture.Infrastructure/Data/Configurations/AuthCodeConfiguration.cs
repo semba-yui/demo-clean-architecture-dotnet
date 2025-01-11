@@ -9,6 +9,7 @@ namespace DemoCompany.DemoCleanArchitecture.Infrastructure.Data.Configurations;
 /// </summary>
 public sealed class AuthCodeConfiguration : IEntityTypeConfiguration<AuthCodeEntity>
 {
+    /// <inheritdoc />
     public void Configure(EntityTypeBuilder<AuthCodeEntity> builder)
     {
         builder.ToTable("AuthCodes", tableBuilder =>

@@ -1,36 +1,53 @@
 using System.Net.Mime;
-using DemoCompany.DemoCleanArchitecture.Api.Forms.Requests.V1.Auth.UserRegister;
-using DemoCompany.DemoCleanArchitecture.Api.Forms.Responses.V1.Auth.UserRegister;
-using DemoCompany.DemoCleanArchitecture.Application.Services;
+using DemoCompany.DemoCleanArchitecture.Api.Forms.Responses.V1.User.GetUser;
+using DemoCompany.DemoCleanArchitecture.Application.Services.Users;
+using DemoCompany.DemoCleanArchitecture.Domain.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoCompany.DemoCleanArchitecture.Api.Controllers.V1;
 
-public sealed class UserController(RegisterUserService registerUserService) : DemoCleanArchitectureBaseController
+/// <summary>
+///     ユーザーコントローラー
+/// </summary>
+public sealed class UserController(GetUserService getUserService, DeleteUserService deleteUserService)
+    : DemoCleanArchitectureBaseController
 {
-    [HttpPost("register")]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<UserRegisterResponse>> Register([FromBody] UserRegisterRequest request)
-    {
-        // Application層のサービスを呼び出し、ユーザーを作成
-        var userId = await registerUserService.ExecuteAsync(
-            userName: request.UserName,
-            email: request.Email,
-            plainPassword: request.Password
-        );
-
-        // レスポンスオブジェクトを作成
-        var response = new UserRegisterResponse { UserId = userId };
-
-        // 201 Created
-        return CreatedAtAction(nameof(GetUser), new { id = userId }, response);
-    }
-
+    [Authorize(Policy = PermissionNames.UserRead)]
     [HttpGet("{id:int}")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> GetUser(int id)
+    [ProducesResponseType<GetUserResponse>(StatusCodes.Status200OK)]
+    public async Task<ActionResult<GetUserResponse>> GetUser(int id)
     {
-        throw new NotImplementedException();
+        var user = await getUserService.ExecuteAsync(id);
+
+        var response = new GetUserResponse
+        {
+            userName = user.userName,
+            email = user.email,
+            emailConfirmed = user.emailConfirmed,
+            twoFactorEnabled = user.twoFactorEnabled,
+            accessFailedCount = user.accessFailedCount,
+            lockoutEnd = user.lockoutEnd,
+            isDeleted = user.isDeleted
+        };
+
+        return Ok(response);
+    }
+
+    /// <summary>
+    ///     ユーザー削除
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [Authorize(Policy = PermissionNames.UserDelete)]
+    [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<ActionResult> Delete(int id)
+    {
+        await deleteUserService.ExecuteAsync(id);
+
+        // 204 No Content
+        return NoContent();
     }
 }
