@@ -7,7 +7,10 @@ sequenceDiagram
     S->>S: Validate refresh_token (DB or signature check)
     alt Token invalid
         S-->>C: 401 Unauthorized
+        note right of S: 認証エラー
+        S-->>C: { "code": "UNAUTHORIZED", "message": "Unauthorized Error" }
     else Token valid
         S->>S: Create new AccessToken (+ optional new RefreshToken)
         S-->>C: 200 OK { access_token: "...", refresh_token: "yyyy", ... }
+        note right of S: 新しいアクセストークンとリフレッシュトークンを生成
     end

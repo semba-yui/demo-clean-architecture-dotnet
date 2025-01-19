@@ -108,7 +108,143 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                    refresh_token: dGhpcyBpcyBhIHJlZnJlc2ggdG9rZW4uLi4=
+                    is_two_factor_enabled: true
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  is_two_factor_enabled:
+                    type: boolean
+                required:
+                  - access_token
+                  - refresh_token
+                  - is_two_factor_enabled
+              examples:
+                Example 1:
+                  value:
+                    access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                    refresh_token: dGhpcyBpcyBhIHJlZnJlc2ggdG9rZW4uLi4=
+                    is_two_factor_enabled: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    code: INVALID_PARAMETER
+                    message: Invalid parameter
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+              examples:
+                INVALID_PARAMETER:
+                  value:
+                    code: INVALID_PARAMETER
+                    message: Invalid parameter
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    code: UNAUTHORIZED
+                    message: Unauthorized Error
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+              examples:
+                UNAUTHORIZED:
+                  value:
+                    code: UNAUTHORIZED
+                    message: Unauthorized Error
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    code: INTERNAL_ERROR
+                    message: Internal Server Error
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                required:
+                  - code
+                  - message
+              examples:
+                INTERNAL_ERROR:
+                  value:
+                    code: INTERNAL_ERROR
+                    message: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  email: user@example.com
+                  password: P@ssW0rd
+              properties:
+                email:
+                  type: string
+                  format: email
+                  maxLength: 50
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  maxLength: 30
+                  minLength: 8
+                  example: P@ssW0rd
+              required:
+                - email
+                - password
+            examples:
+              Example 1:
+                value:
+                  email: user@example.com
+                  password: P@ssW0rd
+        description: ''
+      parameters: []
+      description: ログインを行う。
+      tags:
+        - auth
+    parameters: []
 components:
   schemas: {}
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 tags:
   - name: user
+  - name: auth
